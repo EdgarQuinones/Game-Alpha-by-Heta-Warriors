@@ -7,7 +7,9 @@ public class Entity {
     private int level;
 	private boolean isAlive;
 	private String name;
+	private Icon icon;
 	
+
 	public Entity(String name) {
 		this.health = 100;
 		this.damage = 10;
@@ -83,5 +85,15 @@ public class Entity {
 	private void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
 	}
+
+	public Icon getIcon() {
+		return icon;
+	}
+
+	public void setIcon(Icon icon) {
+		this.icon = icon;
+	}
+	
+	
 
 }
