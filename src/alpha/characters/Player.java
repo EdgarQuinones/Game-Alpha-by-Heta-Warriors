@@ -2,7 +2,8 @@ package alpha.characters;
 
 public class Player extends Entity{
 
-	private int experiencePoints;
+	private int currentExperiencePoints;
+	private int experiencePointsNeeded = this.level * 13;
 	private String lightAttack;
 	private String heavyAttack;
 	private String movementAbility;
@@ -17,10 +18,9 @@ public class Player extends Entity{
 		this.specialAttack = "Special Attack";
 	}
 
-	public Player(int health, int damage, int level, String name, int experiencePoints, String lightAttack, String heavyAttack, String movementAbility, String specialAttack) {
-		super(health, damage, level, name);
+	public Player(int health, int damage, int level, String name, int defence, String lightAttack, String heavyAttack, String movementAbility, String specialAttack) {
+		super(health, damage, level, name, defence);
 		// TODO Auto-generated constructor stub
-		this.experiencePoints = experiencePoints;
 		this.lightAttack = lightAttack;
 		this.heavyAttack = heavyAttack;
 		this.movementAbility = movementAbility;
@@ -60,11 +60,21 @@ public class Player extends Entity{
 	}
 
 	public int getExperiencePoints() {
-		return experiencePoints;
+		return currentExperiencePoints;
 	}
 
 	private void setExperiencePoints(int experiencePoints) {
-		this.experiencePoints = experiencePoints;
+		this.currentExperiencePoints = experiencePoints;
+	}
+	
+	private void gainExperiencePoints(int experiencePoints) {
+		currentExperiencePoints += experiencePoints;
+		if(currentExperiencePoints >= experiencePointsNeeded) {
+			this.levelUp();
+			currentExperiencePoints = 0;
+			experiencePointsNeeded = this.level * 13;
+
+		}
 	}
 	
 }

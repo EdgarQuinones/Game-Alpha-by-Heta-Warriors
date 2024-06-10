@@ -4,8 +4,8 @@ public class Minion extends Enemy{
 
 	
 	
-	public Minion(int health, int damage, int level, String name) {
-		super(health, damage, level, name);
+	public Minion(int health, int damage, int level, int defence, String name) {
+		super(health, damage, level, defence, name);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -2,11 +2,12 @@ package alpha.characters;
 public class Entity {
 
 
-	private int health;
-    private int damage;
-    private int level;
-	private boolean isAlive;
-	private String name;	
+	protected int health;
+	protected int damage;
+    protected int level;
+    protected int defence;
+    protected boolean isAlive;
+    protected String name;	
 
 	public Entity(String name) {
 		this.health = 100;
@@ -14,15 +15,25 @@ public class Entity {
 		this.level = 1;
 		this.isAlive = true;
 		this.name = name;
+		this.defence = 5;
 	}
 	
-    public Entity(int health, int damage, int level, String name) {
+    public Entity(int health, int damage, int level, String name, int defence) {
 		super();
 		this.health = health;
 		this.damage = damage;
 		this.level = level;
 		this.isAlive = true;
 		this.name = name;
+		this.defence = defence;
+	}
+
+	public int getDefence() {
+		return defence;
+	}
+
+	private void setDefence(int defence) {
+		this.defence = defence;
 	}
 
 	public String getName() {
@@ -43,9 +54,12 @@ public class Entity {
     }
     
     public void hurt(int damage) {
-    	health = health - damage;
     	
-    	if(health <= 0) {
+    	damage = damage * ((100 - this.defence) / 100);
+    	
+    	this.health = this.health - damage;
+    	
+    	if(this.health <= 0) {
     		this.health = 0;
     		this.setAlive(false);
     		System.out.println(this.name + " has been elimited!");
@@ -84,6 +98,8 @@ public class Entity {
 		this.isAlive = isAlive;
 	}
 	
-	
+	protected void levelUp() {
+		this.setLevel(level++);
+	}
 
 }

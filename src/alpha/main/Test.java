@@ -2,6 +2,7 @@ package alpha.main;
 
 import alpha.characters.Icon;
 import alpha.characters.Player;
+import alpha.characters.enemies.Enemy;
 
 public class Test {
 
@@ -22,7 +23,8 @@ public class Test {
 //        	System.out.println(player2.getHealth());
 //    	}
     	
-    	Icon.minion();
+    	Enemy shrek = new Enemy("Shrek");
+    	System.out.println(shrek);
 	}
 
 }

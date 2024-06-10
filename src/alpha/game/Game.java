@@ -1,6 +1,7 @@
 package alpha.game;
 
 import alpha.characters.Icon;
+import alpha.characters.enemies.Enemy;
 
 public class Game {
 
@@ -30,6 +31,16 @@ public class Game {
 	private static void startMenu() {
 		Icon.menu();
 		System.out.println("Print Menu");
+		
+	}
+	
+	private static void fight(String location, int numOfEnemies, Enemy[] mobs) {
+		System.out.println("You have entered "+location+".");
+		System.out.println("There are "+numOfEnemies+" enemies: ");
+
+		for(Enemy mob : mobs) {
+			System.out.println(mob);
+		}
 		
 	}
 	
