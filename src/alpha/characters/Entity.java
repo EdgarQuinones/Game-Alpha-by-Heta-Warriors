@@ -2,6 +2,15 @@ package alpha.characters;
 public class Entity {
 
 
+	protected int maxHealth;
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
 	protected int health;
 	protected int damage;
     protected int level;
@@ -9,6 +18,13 @@ public class Entity {
     protected boolean isAlive;
     protected String name;	
 
+    public Entity(String name, int health, int damage, int defence) {
+    	this.name = name;
+    	this.health = health;
+    	this.damage = damage;
+    	this.defence = defence;
+    }
+    
 	public Entity(String name) {
 		this.health = 100;
 		this.damage = 10;
@@ -16,6 +32,7 @@ public class Entity {
 		this.isAlive = true;
 		this.name = name;
 		this.defence = 5;
+		this.maxHealth = health;
 	}
 	
     public Entity(int health, int damage, int level, String name, int defence) {
@@ -26,6 +43,7 @@ public class Entity {
 		this.isAlive = true;
 		this.name = name;
 		this.defence = defence;
+		this.maxHealth = health;
 	}
 
 	public int getDefence() {
