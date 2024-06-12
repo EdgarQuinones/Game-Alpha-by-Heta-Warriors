@@ -41,43 +41,49 @@ public class Ability {
 		this.isAOE = isAOE;
 	}
 
-	/*
-	 * Gets the ability's name
+	/**
+	 * 
+	 * @return The abilities name
 	 */
 	public String getName() {
 		return name;
 	}
 	
-	/*
-	 * Sets the ability's name
+	/**
+	 * 
+	 * @param name The new name of the ability
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	/*
-	 * Gets the ability's damage
+	/**
+	 * 
+	 * @return The abilities damage
 	 */
 	public int getDamage() {
 		return damage;
 	}
 	
-	/*
-	 * Sets the ability's damage
+	/**
+	 * 
+	 * @param damage The damage the abilty will now do
 	 */
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
 
-	/*
-	 * Returns wether or not the ability is AOE
+	/**
+	 * 
+	 * @return Whether or not the ability is an AOE spell
 	 */
 	public boolean isAOE() {
 		return isAOE;
 	}
 	
-	/*
-	 * Sets the ability to AOE or not
+	/**
+	 * 
+	 * @param isAOE Decides if the spell is AOE or not
 	 */
 	public void setAOE(boolean isAOE) {
 		this.isAOE = isAOE;
