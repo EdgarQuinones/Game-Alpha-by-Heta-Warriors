@@ -1,5 +1,10 @@
 package alpha.characters;
 
+/**
+ * The Icon class is used for all the ASCII images used in this game.
+ * While it does all a bit strange and hard to read at times. It
+ * works for the current early project.
+ */
 public class Icon {
 	private String icon;
 	

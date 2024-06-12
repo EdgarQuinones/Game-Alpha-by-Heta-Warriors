@@ -1,7 +1,13 @@
 package alpha.characters;
 
-import alpha.other.Ability;
-
+/**
+ * The Player class is where the main band of 
+ * characters reside. Players have various capabities with 
+ * more being implemented. For now they are known for having 
+ * 3 abilities. 1 single target ability, 1 AOE ability, and 
+ * 1 special abilties. Not all abilties do damage as there 
+ * are multiple classes.
+ */
 public class Player extends Entity{
 
 	public Player(String name) {
