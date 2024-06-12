@@ -1,7 +1,5 @@
 package alpha.game;
 
-import alpha.characters.*;
-
 /**
  * Aether Champions is a 1-5 player, turned-based rpg based only using ASCII.
  * It contains a besic start and finish, a few levels, and it meant to be 

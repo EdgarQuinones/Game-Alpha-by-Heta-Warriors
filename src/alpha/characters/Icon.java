@@ -6,7 +6,6 @@ package alpha.characters;
  * works for the current early project.
  */
 public class Icon {
-	private String icon;
 	
 	public static void menu() {
 		System.out.println(".----------------------------------------------------------------------------------------------.\n"

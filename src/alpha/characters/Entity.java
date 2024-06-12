@@ -86,10 +86,6 @@ public class Entity {
 		return defence;
 	}
 
-	private void setDefence(int defence) {
-		this.defence = defence;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -142,16 +138,8 @@ public class Entity {
 		return health;
 	}
 
-	private void setHealth(int health) {
-		this.health = health;
-	}
-
 	public int getDamage() {
 		return damage;
-	}
-
-	private void setDamage(int damage) {
-		this.damage = damage;
 	}
 
 	public int getLevel() {

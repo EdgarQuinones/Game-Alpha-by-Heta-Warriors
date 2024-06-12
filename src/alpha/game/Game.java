@@ -1,6 +1,5 @@
 package alpha.game;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -10,7 +9,6 @@ import alpha.characters.enemies.Boss;
 import alpha.characters.enemies.Enemy;
 import alpha.characters.enemies.Minion;
 import alpha.other.Ability;
-import alpha.other.Lore;
 
 /**
  * The Game class handles most of the actual game logic.
@@ -97,12 +95,14 @@ public class Game {
 	}
 
 	// TODO: This should be in Lore, not in Game, so not making a comment 
+	@SuppressWarnings("unused")
 	private static void level1Intro() {
 		// TODO Auto-generated method stub
 		System.out.println("Lore of level 1"); 
 	}
 
 	// TODO: Might move to lore, or make a UI class.
+	@SuppressWarnings("unused")
 	private static void startMenu() {
 		System.out.println("Welcome to...");
 		Icon.menu();
@@ -179,78 +179,77 @@ public class Game {
 	private static boolean battlePhase(Player[] band, Enemy[] mobs) {
 		
 		// TODO: A little too many variables here. Will need to clean up
-		boolean bandIsAlive = true;
-		Scanner scnr = new Scanner(System.in);
-		int choice;
-		int playerDamage = 0;
-		int enemyDamage = 0;
-		Ability[] playerAbilities;
-		String playerName = "";
-		for(Player member : band) {
-			
-			// TODO: Move to UI?
-			System.out.println("*******************");
-			System.out.println(" The Band's Turn!  ");
-			System.out.println("*******************\n");
-			
-			displayPlayers(band);
-			displayEnemies(mobs);
-			do {
-			System.out.println(member.getName()+"'s turn. Select an ability:\n");
-			Ability.displayAbilities(member.getAbilities());
-			playerAbilities = member.getAbilities();
-			System.out.print("Ability: ");
-			choice = scnr.nextInt();
-			System.out.println();
-			
-			switch(choice) {
-			
-			case 1: 
-				playerDamage = playerAbilities[0].getDamage();
-			case 2: 
-				playerDamage = playerAbilities[1].getDamage();
-			case 3: 
-				playerDamage = playerAbilities[2].getDamage();
-			}
-			
-					
-			}while(choice <= 0 || choice > member.getNumberOfAbilities());
-			
-			do {
+		try (Scanner scnr = new Scanner(System.in)) {
+			int choice = 0;
+			int playerDamage = 0;
+			int enemyDamage = 0;
+			Ability[] playerAbilities;
+			for(Player member : band) {
+				
+				// TODO: Move to UI?
+				System.out.println("*******************");
+				System.out.println(" The Band's Turn!  ");
+				System.out.println("*******************\n");
+				
 				displayPlayers(band);
-				System.out.println("Select an Enemy: ");
 				displayEnemies(mobs);
-				System.out.print("Enemy: ");
+				do {
+				System.out.println(member.getName()+"'s turn. Select an ability:\n");
+				Ability.displayAbilities(member.getAbilities());
+				playerAbilities = member.getAbilities();
+				System.out.print("Ability: ");
 				choice = scnr.nextInt();
 				System.out.println();
-			}while(choice <= 0 || choice > mobs.length);	
-				if(!playerAbilities[choice -1].isAOE()) {
-					for(int i = 0; i < mobs.length; i++) {
-						if(choice - 1 == i) {
-							mobs[i].hurt(playerDamage);
-							System.out.println(member.getName()+" did "+playerDamage+" to "+mobs[i].getName());
+				
+				switch(choice) {
+				
+				case 1: 
+					playerDamage = playerAbilities[0].getDamage();
+				case 2: 
+					playerDamage = playerAbilities[1].getDamage();
+				case 3: 
+					playerDamage = playerAbilities[2].getDamage();
+				}
+				
+						
+				}while(choice <= 0 || choice > member.getNumberOfAbilities());
+				
+				do {
+					displayPlayers(band);
+					System.out.println("Select an Enemy: ");
+					displayEnemies(mobs);
+					System.out.print("Enemy: ");
+					choice = scnr.nextInt();
+					System.out.println();
+				}while(choice <= 0 || choice > mobs.length);	
+					if(!playerAbilities[choice -1].isAOE()) {
+						for(int i = 0; i < mobs.length; i++) {
+							if(choice - 1 == i) {
+								mobs[i].hurt(playerDamage);
+								System.out.println(member.getName()+" did "+playerDamage+" to "+mobs[i].getName());
+							}
 						}
-					}
-				}else {
-					for(int i = 0; i < mobs.length; i++) {
-							mobs[i].hurt(playerDamage);
-							System.out.println(member.getName()+" did "+playerDamage+" to "+mobs[i].getName());
+					}else {
+						for(int i = 0; i < mobs.length; i++) {
+								mobs[i].hurt(playerDamage);
+								System.out.println(member.getName()+" did "+playerDamage+" to "+mobs[i].getName());
+							}
 						}
-					}
-		}//End of band attacks 
-		
-		// TODO: Move to UI? #2 
-		System.out.println("\n*******************");
-		System.out.println(" The Enemies Turn!  ");
-		System.out.println("*******************\n");
-		
-		Random rand = new Random();
-		int attackedPlayer = rand.nextInt(band.length);
-		for(Enemy mob : mobs) {
-			enemyDamage = mob.attack();
-			band[attackedPlayer].hurt(enemyDamage);
-			System.out.println(mob.getName()+" did "+mob.attack()+" to "+band[attackedPlayer].getName());
-			attackedPlayer = rand.nextInt(band.length);
+			}//End of band attacks 
+			
+			// TODO: Move to UI? #2 
+			System.out.println("\n*******************");
+			System.out.println(" The Enemies Turn!  ");
+			System.out.println("*******************\n");
+			
+			Random rand = new Random();
+			int attackedPlayer = rand.nextInt(band.length);
+			for(Enemy mob : mobs) {
+				enemyDamage = mob.attack();
+				band[attackedPlayer].hurt(enemyDamage);
+				System.out.println(mob.getName()+" did "+mob.attack()+" to "+band[attackedPlayer].getName());
+				attackedPlayer = rand.nextInt(band.length);
+			}
 		}
 		System.out.println();
 		
