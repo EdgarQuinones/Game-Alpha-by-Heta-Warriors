@@ -1,6 +1,7 @@
 package alpha.game;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import alpha.characters.Icon;
@@ -37,10 +38,23 @@ public class Game {
 				new Minion("Wild Minion"),
 				new Minion("Primeval Minion"),
 				};
-		
-		do {
+		battleOutcome = fight(band, location, wave1);
+		while(!battleOutcome) {
+			
+			System.out.println("*******************");
+			System.out.println(" All Band members Defeated!  ");
+			System.out.println(" Going back to the start!  ");
+			System.out.println("*******************\n");
+			
+			for(Player member : band) {
+				member.reset();
+			}
+			for(Enemy mob : wave1) {
+				mob.reset();
+			}
+			
 			battleOutcome = fight(band, location, wave1);
-		}while(!battleOutcome);
+		}
 		
 		
 		//end of section 1
@@ -69,33 +83,38 @@ public class Game {
 	}
 	
 	private static boolean fight(Player[] band, String location, Enemy[] mobs) {
-		System.out.println("You have entered "+location+".\n");
 		
+		
+		System.out.println("You have entered "+location+".\n");
 		boolean bandIsAlive = true;
 		boolean levelCompleted = false;
-		while(bandIsAlive && !levelCompleted) {
-			System.out.println("There are "+mobs.length+" enemies: ");
+		while(!levelCompleted && bandIsAlive) {
+			
+			int livingMobs = 0;
+			for(Enemy mob : mobs ) {
+				if(mob.isAlive()) livingMobs++;
+			}
+			System.out.println("There are "+livingMobs+" enemies remaining: ");
 			
 			//1st list containing how many of each enemy there are
 			minionCount = 0;
 			bossCount = 0;
 			for(Enemy mob : mobs) {
-				if(mob instanceof Minion) {
+				if(mob instanceof Minion && mob.isAlive()) {
 					minionCount++;
 				}
-				else if(mob instanceof Boss) {
+				else if(mob instanceof Boss && mob.isAlive()) {
 					bossCount++;
 				}
 			}
 			System.out.println("* "+minionCount+" Minions");
 			System.out.println("* "+bossCount+" Bosses\n");
 	
-			battlePhase(band,mobs);
+			bandIsAlive = battlePhase(band,mobs);
 			
-			bandIsAlive = checkStatus(band);
 			levelCompleted = checkEnemies(mobs);
 		}
-		if(levelCompleted) {
+		if(levelCompleted && bandIsAlive) {
 			return true;//goes to level 2
 		}else {
 			return false;//restarts level
@@ -103,20 +122,21 @@ public class Game {
 	}
 	
 
-	private static void battlePhase(Player[] band, Enemy[] mobs) {
-		/*
-		 * What ability would you like to use? ???
-		 * 	loop player.display abilities
-		 * 		1. single target, high dmg
-		 * 		2. aoe, low dmg
-		 *		3. speaical attack (WIP)
-		 * */
+	private static boolean battlePhase(Player[] band, Enemy[] mobs) {
+		
+		boolean bandIsAlive = true;
 		Scanner scnr = new Scanner(System.in);
 		int choice;
 		int playerDamage = 0;
+		int enemyDamage = 0;
 		Ability[] playerAbilities;
-		String playerName;
+		String playerName = "";
 		for(Player member : band) {
+			
+			System.out.println("*******************");
+			System.out.println(" The Band's Turn!  ");
+			System.out.println("*******************\n");
+			
 			displayPlayers(band);
 			displayEnemies(mobs);
 			do {
@@ -126,16 +146,19 @@ public class Game {
 			System.out.print("Ability: ");
 			choice = scnr.nextInt();
 			System.out.println();
-		
+			
 			switch(choice) {
-			case 1 -> playerDamage = playerAbilities[0].getDamage();
-			case 2 -> playerDamage = playerAbilities[1].getDamage();
-			case 3 -> playerDamage = playerAbilities[2].getDamage();
+			
+			case 1: 
+				playerDamage = playerAbilities[0].getDamage();
+			case 2: 
+				playerDamage = playerAbilities[1].getDamage();
+			case 3: 
+				playerDamage = playerAbilities[2].getDamage();
 			}
 			
+					
 			}while(choice <= 0 || choice > member.getNumberOfAbilities());
-			
-			playerName = band[choice-1].getName();
 			
 			do {
 				displayPlayers(band);
@@ -149,17 +172,35 @@ public class Game {
 					for(int i = 0; i < mobs.length; i++) {
 						if(choice - 1 == i) {
 							mobs[i].hurt(playerDamage);
-							System.out.println(playerName+" did "+playerDamage+" to "+mobs[i].getName());
+							System.out.println(member.getName()+" did "+playerDamage+" to "+mobs[i].getName());
 						}
 					}
 				}else {
 					for(int i = 0; i < mobs.length; i++) {
 							mobs[i].hurt(playerDamage);
-							System.out.println(playerName+" did "+playerDamage+" to "+mobs[i].getName());
+							System.out.println(member.getName()+" did "+playerDamage+" to "+mobs[i].getName());
 						}
 					}
-					
-			
+		}//End of band attacks 
+		
+		System.out.println("\n*******************");
+		System.out.println(" The Enemies Turn!  ");
+		System.out.println("*******************\n");
+		
+		Random rand = new Random();
+		int attackedPlayer = rand.nextInt(band.length);
+		for(Enemy mob : mobs) {
+			enemyDamage = mob.attack();
+			band[attackedPlayer].hurt(enemyDamage);
+			System.out.println(mob.getName()+" did "+mob.attack()+" to "+band[attackedPlayer].getName());
+			attackedPlayer = rand.nextInt(band.length);
+		}
+		System.out.println();
+		
+		if(checkStatus(band)) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 
@@ -181,12 +222,18 @@ public class Game {
 
 	private static boolean checkStatus(Player[] band) {
 		// TODO Auto-generated method stub
+		int bandSize = band.length;
+		int downedMembers = 0;
 		for(Player player : band) {
 			if(!player.isAlive()) {
-				return false;
+				downedMembers++;
 			}
 		}
-		return true;
+		if(downedMembers == bandSize) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 	
 	private static void displayEnemies(Enemy[] mobs) {
@@ -208,5 +255,6 @@ public class Game {
 		}
 		System.out.println();
 	}
+	
 	
 }

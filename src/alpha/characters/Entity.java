@@ -25,7 +25,8 @@ public class Entity {
     	
     	this.abilities = new Ability[3];
     	for(int i = 0; i < abilities.length; i++){
-    		abilities[i] = new Ability("Ability "+(i+1), damage, false);
+    		int num = i+1;
+    		abilities[i] = new Ability("Ability "+num, damage, false);
     	}
     	this.abilities[0].setAOE(false);
     	this.abilities[1].setAOE(true);
@@ -51,7 +52,8 @@ public class Entity {
     	
     	abilities = new Ability[3];
     	for(int i = 0; i < abilities.length; i++){
-    		abilities[i] = new Ability("Ability "+i+1, damage, false);
+    		int num = i + 1;
+    		abilities[i] = new Ability("Ability "+num, damage, false);
     	}
     }
     
@@ -105,7 +107,10 @@ public class Entity {
     
     public void hurt(int damage) {
     	
-    	this.health = this.health - (damage - defence);
+    	damage = damage - defence;
+    	if(damage < 0) damage = 0;
+    	
+    	this.health = this.health - damage;
     	
     	if(this.health <= 0) {
     		this.health = 0;
@@ -148,6 +153,11 @@ public class Entity {
 	
 	protected void levelUp() {
 		this.setLevel(level++);
+	}
+	
+	public void reset() {
+		this.health = this.maxHealth;
+		this.isAlive = true;
 	}
 
 }
