@@ -2,15 +2,11 @@ package alpha.characters.enemies;
 
 public class Boss extends Enemy{
 
-	public Boss(int health, int damage, int level, int defence, String name) {
-		super(health, damage, level, defence, name);
+	public Boss(String name, int health, int damage, int defence) {
+		super(name, health, damage, defence);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Boss(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
 
 	
 

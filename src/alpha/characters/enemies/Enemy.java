@@ -4,20 +4,18 @@ import alpha.characters.Entity;
 
 public class Enemy extends Entity{
 
+	
+	
 	public Enemy(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Enemy(int health, int damage, int level, int defence, String name) {
-		super(health, damage, level, name, defence);
+
+	public Enemy(String name, int health, int damage, int defence) {
+		super(name, health, damage, defence);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Enemy(String name, int health, int damage, int defence) {
-    	super(name, health, damage, defence);
-    }
-	
+
 	@Override
 	public String toString() {
 		if(this.isAlive) {

@@ -1,12 +1,15 @@
 package alpha.game;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import alpha.characters.Icon;
 import alpha.characters.Player;
 import alpha.characters.enemies.Boss;
 import alpha.characters.enemies.Enemy;
 import alpha.characters.enemies.Minion;
+import alpha.other.Ability;
+import alpha.other.Lore;
 
 public class Game {
 	
@@ -17,31 +20,16 @@ public class Game {
 
 	public static void Start(Player[] band) {
 		
-		System.out.println("Game Started!");
-		startMenu();
+		//startMenu();
 		Level1(band);
 		
 	}
 	
 	private static void Level1(Player[] band) {
+		
 		boolean battleOutcome;
 		
-		// Gameplay Loop
-		
-		//while(!levelComplete)
-		
-		//areaInfo()
-		//battlephase()
-		
-		//if(!player.isalive) 
-			// gameOver()
-			// Restart Level 1
-		//if(numOfenemies <= 0)
-			//levelComplete == true
-		
-		//Loop this if player dies
-
-		level1Intro();//lore for level 1
+		//Lore.level1Start();//lore for level 1
 		
 		location = "Ghastly Woods";
 		Enemy[] wave1 = {
@@ -56,6 +44,7 @@ public class Game {
 		
 		
 		//end of section 1
+		System.out.println();
 		
 		//Section 2 loop
 		location = "Icy Cliffs";
@@ -74,8 +63,8 @@ public class Game {
 	}
 
 	private static void startMenu() {
+		System.out.println("Welcome to...");
 		Icon.menu();
-		System.out.println("Print Menu");
 		
 	}
 	
@@ -101,16 +90,6 @@ public class Game {
 			System.out.println("* "+minionCount+" Minions");
 			System.out.println("* "+bossCount+" Bosses\n");
 	
-			
-			//2nd list containing most stats
-			System.out.println("Arena:");
-			int counter = 1;
-			for(Enemy mob : mobs) {
-				System.out.println(counter+". "+mob);
-				counter++;
-			}
-			
-			//TODO
 			battlePhase(band,mobs);
 			
 			bandIsAlive = checkStatus(band);
@@ -122,31 +101,66 @@ public class Game {
 			return false;//restarts level
 		}
 	}
-	/*
-	 * There are mobs.length enemies:
-	 * 	loop array
-	 * 		count per enemy
-	 * 	- count minions 
-	 *  - count bosses 
-	 *  	if(count > 1) string + "s"
-	 * 
-	 * loop array
-	 * 	toString mobs 
-	 * 		1. minion stats ???
-	 * 		2. minion stats 
-	 * 		3. boss stats	???
-	 * 
-	 * What ability would you like to use? ???
-	 * 	loop player.display abilities
-	 * 		1. single target, high dmg
-	 * 		2. aoe, low dmg
-	 *		3. speaical attack (WIP)
-	 * */
+	
 
 	private static void battlePhase(Player[] band, Enemy[] mobs) {
-		// TODO Auto-generated method stub
+		/*
+		 * What ability would you like to use? ???
+		 * 	loop player.display abilities
+		 * 		1. single target, high dmg
+		 * 		2. aoe, low dmg
+		 *		3. speaical attack (WIP)
+		 * */
+		Scanner scnr = new Scanner(System.in);
+		int choice;
+		int playerDamage = 0;
+		Ability[] playerAbilities;
+		String playerName;
+		for(Player member : band) {
+			displayPlayers(band);
+			displayEnemies(mobs);
+			do {
+			System.out.println(member.getName()+"'s turn. Select an ability:\n");
+			Ability.displayAbilities(member.getAbilities());
+			playerAbilities = member.getAbilities();
+			System.out.print("Ability: ");
+			choice = scnr.nextInt();
+			System.out.println();
 		
-		
+			switch(choice) {
+			case 1 -> playerDamage = playerAbilities[0].getDamage();
+			case 2 -> playerDamage = playerAbilities[1].getDamage();
+			case 3 -> playerDamage = playerAbilities[2].getDamage();
+			}
+			
+			}while(choice <= 0 || choice > member.getNumberOfAbilities());
+			
+			playerName = band[choice-1].getName();
+			
+			do {
+				displayPlayers(band);
+				System.out.println("Select an Enemy: ");
+				displayEnemies(mobs);
+				System.out.print("Enemy: ");
+				choice = scnr.nextInt();
+				System.out.println();
+			}while(choice <= 0 || choice > mobs.length);	
+				if(!playerAbilities[choice -1].isAOE()) {
+					for(int i = 0; i < mobs.length; i++) {
+						if(choice - 1 == i) {
+							mobs[i].hurt(playerDamage);
+							System.out.println(playerName+" did "+playerDamage+" to "+mobs[i].getName());
+						}
+					}
+				}else {
+					for(int i = 0; i < mobs.length; i++) {
+							mobs[i].hurt(playerDamage);
+							System.out.println(playerName+" did "+playerDamage+" to "+mobs[i].getName());
+						}
+					}
+					
+			
+		}
 	}
 
 	private static boolean checkEnemies(Enemy[] mobs) {
@@ -173,6 +187,26 @@ public class Game {
 			}
 		}
 		return true;
+	}
+	
+	private static void displayEnemies(Enemy[] mobs) {
+		System.out.println("Arena:");
+		int counter = 1;
+		for(Enemy mob : mobs) {
+			System.out.println(counter+". "+mob);
+			counter++;
+		}
+		System.out.println();
+	}
+	
+	private static void displayPlayers(Player[] band) {
+		System.out.println("Band:");
+		int counter = 1;
+		for(Player player : band) {
+			System.out.println(counter+". "+player);
+			counter++;
+		}
+		System.out.println();
 	}
 	
 }

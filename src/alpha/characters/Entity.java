@@ -1,50 +1,73 @@
 package alpha.characters;
+
+import alpha.other.Ability;
+
 public class Entity {
 
 
 	protected int maxHealth;
-	public int getMaxHealth() {
-		return maxHealth;
-	}
-
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
-	}
-
 	protected int health;
 	protected int damage;
     protected int level;
     protected int defence;
     protected boolean isAlive;
     protected String name;	
-
+    protected Ability[] abilities;
+    
     public Entity(String name, int health, int damage, int defence) {
     	this.name = name;
     	this.health = health;
     	this.damage = damage;
     	this.defence = defence;
+    	this.level = 1;
+    	this.maxHealth = health;
+    	this.isAlive = true;
+    	
+    	this.abilities = new Ability[3];
+    	for(int i = 0; i < abilities.length; i++){
+    		abilities[i] = new Ability("Ability "+(i+1), damage, false);
+    	}
+    	this.abilities[0].setAOE(false);
+    	this.abilities[1].setAOE(true);
+    	this.abilities[2].setAOE(true);
+    	
     }
     
-	public Entity(String name) {
-		this.health = 100;
-		this.damage = 10;
-		this.level = 1;
-		this.isAlive = true;
-		this.name = name;
-		this.defence = 5;
-		this.maxHealth = health;
+    public void renameAllAbilities(String ability1, String ability2, String ability3) {
+    	abilities[0].setName(ability1);
+    	abilities[1].setName(ability2);
+    	abilities[2].setName(ability3);
+
+    }
+    
+    public Entity(String name) {
+    	this.name = name;
+    	this.health = 100;
+    	this.damage = 10;
+    	this.defence = 5;
+    	this.level = 1;
+    	this.maxHealth = health;
+    	this.isAlive = true;
+    	
+    	abilities = new Ability[3];
+    	for(int i = 0; i < abilities.length; i++){
+    		abilities[i] = new Ability("Ability "+i+1, damage, false);
+    	}
+    }
+    
+    public int getNumberOfAbilities() {
+    	return abilities.length;
+    }
+    
+	public Ability[] getAbilities() {
+		return abilities;
 	}
+
+	public void setAbilities(Ability[] abilities) {
+		this.abilities = abilities;
+	}
+
 	
-    public Entity(int health, int damage, int level, String name, int defence) {
-		super();
-		this.health = health;
-		this.damage = damage;
-		this.level = level;
-		this.isAlive = true;
-		this.name = name;
-		this.defence = defence;
-		this.maxHealth = health;
-	}
 
 	public int getDefence() {
 		return defence;
@@ -70,12 +93,19 @@ public class Entity {
     	}
     	
     }
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
     
     public void hurt(int damage) {
     	
-    	damage = damage * ((100 - this.defence) / 100);
-    	
-    	this.health = this.health - damage;
+    	this.health = this.health - (damage - defence);
     	
     	if(this.health <= 0) {
     		this.health = 0;
