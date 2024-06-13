@@ -12,8 +12,8 @@ public class Minion extends Enemy{
 		super(name);
 	}
 
-	public Minion(String name, int health, int damage, int defence) {
-		super(name, health, damage, defence);
+	public Minion(String name, int health, int damage, int defence, int size) {
+		super(name, health, damage, defence, size);
 	}
 	
 

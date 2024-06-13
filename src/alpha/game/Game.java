@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import alpha.characters.Player;
-import alpha.characters.enemies.Boss;
 import alpha.characters.enemies.Enemy;
 import alpha.characters.enemies.Minion;
 import alpha.other.Ability;
@@ -19,18 +18,14 @@ import alpha.other.UI;
  * lore and character battle.
  */
 public class Game {
-	
-	// TODO: Move minion/boss count to another class?
-	private static int minionCount;
-	private static int bossCount;
-	
+		
 	// TODO: Give player the ability to choose how many characters, and what character.
 	// Playable Characters:
-	private static Player EJ = new Player("Samurai", 150, 30, 25);//mid health, mid dmg (Brawler)
-	private static Player Papi = new Player("Wolverine", 200, 20, 30); // high health, low-mid dmg (Tank)
-	private static Player Jada = new Player("Flame Spirit", 125, 50, 10); //low health, high dmg (Glass cannon)
-	private static Player Marielle = new Player("Executioner",125, 40, 20); //mid health, high dmg (Assasin)
-	private static Player Vinny = new Player("Mender", 100, 10, 10); //low health, low dmg (healer)
+	private static Player EJ = new Player("Samurai", 150, 30, 25, Player.NUMBER_OF_PLAYER_ABILITIES);//mid health, mid dmg (Brawler)
+	private static Player Papi = new Player("Wolverine", 200, 20, 30, Player.NUMBER_OF_PLAYER_ABILITIES); // high health, low-mid dmg (Tank)
+	private static Player Jada = new Player("Flame Spirit", 125, 50, 10, Player.NUMBER_OF_PLAYER_ABILITIES); //low health, high dmg (Glass cannon)
+	private static Player Marielle = new Player("Executioner",125, 40, 20, Player.NUMBER_OF_PLAYER_ABILITIES); //mid health, high dmg (Assasin)
+	private static Player Vinny = new Player("Mender", 100, 10, 10, Player.NUMBER_OF_PLAYER_ABILITIES); //low health, low dmg (healer)
 	
 	private static Player[] band = {EJ, Papi, Jada, Vinny, Marielle};	
 	
@@ -39,9 +34,16 @@ public class Game {
 	 * for cleaner visuals.
 	 */
 	public static void Start() {
+		
+		/**
+		 * TODO: Make it so before and after lore is placed
+		 * the player has to press a button to continue...
+		 * Currently too much pops on the screen.
+		 */
+		
 		UI.startMenu();
 		level1();
-		
+
 		//level2()
 		//level3()
 		//etc...
@@ -105,7 +107,7 @@ public class Game {
 	 * @return
 	 */
 	private static void fight(String location, Enemy[] mobs) {
-		// TODO: Too many booleans and lore here. Clean up needed
+ 
 		System.out.println("You have entered "+location+".\n");
 		boolean levelCompleted = false;
 		while(!levelCompleted) {
@@ -116,21 +118,8 @@ public class Game {
 			}
 			System.out.println("There are "+livingMobs+" enemies remaining: ");
 			
-			// TODO: Not sure if enemy count is needed, already displaying all enemies
-			//1st list containing how many of each enemy there are
-			minionCount = 0;
-			bossCount = 0;
-			for(Enemy mob : mobs) {
-				if(mob instanceof Minion && mob.isAlive()) {
-					minionCount++;
-				}
-				else if(mob instanceof Boss && mob.isAlive()) {
-					bossCount++;
-				}
-			}
-			System.out.println("* "+minionCount+" Minions");
-			System.out.println("* "+bossCount+" Bosses\n");
-	
+			Enemy.enemyCount(mobs);
+
 			battlePhase(band,mobs);
 			
 			levelCompleted = !(checkEnemies(mobs));
@@ -155,12 +144,13 @@ public class Game {
 	 */
 	private static void battlePhase(Player[] band, Enemy[] mobs) {
 		
-		// TODO: #3 A little too many variables here. Will need to clean up
-			Scanner scnr = new Scanner(System.in);
 			int playerDamage = 0;
 			int enemyChoice = -1;
 			int abilityChoice = -1;
 			int enemyDamage = 0;
+			Scanner scnr = new Scanner(System.in);
+
+			
 			Ability[] playerAbilities;
 			for(Player member : band) {
 				UI.playersTurn();
@@ -198,11 +188,11 @@ public class Game {
 				switch(abilityChoice) {
 				
 				case 1: 
-					playerDamage = playerAbilities[0].getDamage();
+					playerDamage = playerAbilities[0].getEffect();
 				case 2: 
-					playerDamage = playerAbilities[1].getDamage();
+					playerDamage = playerAbilities[1].getEffect();
 				case 3: 
-					playerDamage = playerAbilities[2].getDamage();
+					playerDamage = playerAbilities[2].getEffect();
 				}
 				
 				displayPlayers(band);
@@ -279,8 +269,7 @@ public class Game {
 
 	/**
 	 * Used to check if all enemies are alive, if 
-	 * they are all elimited, returns false, 
-	 * kinda confusing now may change it
+	 * they are all elimited, returns false
 	 * @param mobs Group of enemies
 	 * @return true if at least 1 alive, else false
 	 */
@@ -301,8 +290,7 @@ public class Game {
 
 	/**
 	 * Used to check if all players are alive, if 
-	 * they are all elimited, returns false, 
-	 * kinda confusing now may change it
+	 * they are all elimited, returns false
 	 * @param band Group of Players
 	 * @return true if at least 1 alive, else false
 	 */

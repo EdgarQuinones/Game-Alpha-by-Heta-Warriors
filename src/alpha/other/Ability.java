@@ -9,11 +9,16 @@ package alpha.other;
  */
 public class Ability {
 	
-	// TODO: #2 change damage to something else, should be able to be used as healing too.
+	private final String NO_TYPE = "None"; // Type 1
+	private final String DAMAGE_TYPE = "Damage"; // Type 2
+	private final String HEAL_TYPE = "Heal";  // Type 3
+	private final String BOOST_TYPE = "Boost"; // Type 4
+	
 	// Private instance variables 
 	private String name;
-	private int damage;
+	private int effect;
 	private boolean isAOE;
+	private String effectType;
 	
 	/**
 	 * Default constructor will make 
@@ -24,8 +29,9 @@ public class Ability {
 	 */
 	public Ability() {
 		this.name = "Ability Name";
-		this.damage = 10;
+		this.effect = 10;
 		this.isAOE = false;
+		effectType = NO_TYPE;
 	}
 	
 	/**
@@ -37,10 +43,11 @@ public class Ability {
 	 */
 	public Ability(String name, int damage, boolean isAOE) {
 		this.name = name;
-		this.damage = damage;
+		this.effect = damage;
 		this.isAOE = isAOE;
+		this.effectType = NO_TYPE;
 	}
-
+	
 	/**
 	 * 
 	 * @return The abilities name
@@ -55,22 +62,6 @@ public class Ability {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-	
-	/**
-	 * 
-	 * @return The abilities damage
-	 */
-	public int getDamage() {
-		return damage;
-	}
-	
-	/**
-	 * 
-	 * @param damage The damage the abilty will now do
-	 */
-	public void setDamage(int damage) {
-		this.damage = damage;
 	}
 
 	/**
@@ -87,6 +78,30 @@ public class Ability {
 	 */
 	public void setAOE(boolean isAOE) {
 		this.isAOE = isAOE;
+	}
+	
+	public int getEffect() {
+		return effect;
+	}
+
+	public void setEffect(int effect) {
+		this.effect = effect;
+	}
+
+	public String getEffectType() {
+		return effectType;
+	}
+
+	public void setEffectType(int effectType) {
+		//MUST BE 1 OF 4 TYPES ABOVE
+		
+		switch(effectType) {
+		case 1 -> this.effectType = NO_TYPE;
+		case 2 -> this.effectType = DAMAGE_TYPE;
+		case 3 -> this.effectType = HEAL_TYPE;
+		case 4 -> this.effectType = BOOST_TYPE;
+		}
+
 	}
 
 	/**
@@ -108,7 +123,7 @@ public class Ability {
 	 */
 	@Override
 	public String toString() {
-		return name + "\nDamage: " + damage + "\nAOE: " + isAOE;
+		return name + "\nDamage: " + effect + "\nAOE: " + isAOE;
 	}
 
 }

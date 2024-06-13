@@ -9,8 +9,8 @@ package alpha.characters.enemies;
  */
 public class Boss extends Enemy{
 
-	public Boss(String name, int health, int damage, int defence) {
-		super(name, health, damage, defence);
+	public Boss(String name, int health, int damage, int defence, int size) {
+		super(name, health, damage, defence, size);
 	}
 
 

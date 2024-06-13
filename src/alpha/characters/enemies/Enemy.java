@@ -10,8 +10,8 @@ public class Enemy extends Entity{
 		super(name);
 	}
 
-	public Enemy(String name, int health, int damage, int defence) {
-		super(name, health, damage, defence);
+	public Enemy(String name, int health, int damage, int defence, int size) {
+		super(name, health, damage, defence, size);
 	}
 
 	@Override
@@ -25,6 +25,24 @@ public class Enemy extends Entity{
 			return "Enemy Elimited.";
 		}
 		
+	}
+
+	/**
+	 * @param mobs
+	 */
+	public static void enemyCount(Enemy[] mobs) {
+		int minionCount = 0;
+		int bossCount = 0;
+		for(Enemy mob : mobs) {
+			if(mob instanceof Minion && mob.isAlive()) {
+				minionCount++;
+			}
+			else if(mob instanceof Boss && mob.isAlive()) {
+				bossCount++;
+			}
+		}
+		System.out.println("* "+minionCount+" Minions");
+		System.out.println("* "+bossCount+" Bosses\n");
 	}
 
 }

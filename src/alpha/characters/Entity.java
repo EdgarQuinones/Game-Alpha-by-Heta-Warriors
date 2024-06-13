@@ -20,8 +20,9 @@ public class Entity {
     protected boolean isAlive;
     protected String name;	
     protected Ability[] abilities;
+    protected int numberOfAbilities;
     
-    public Entity(String name, int health, int damage, int defence) {
+    public Entity(String name, int health, int damage, int defence, int size) {
     	this.name = name;
     	this.health = health;
     	this.damage = damage;
@@ -29,25 +30,15 @@ public class Entity {
     	this.level = 1;
     	this.maxHealth = health;
     	this.isAlive = true;
+    	numberOfAbilities = size;
     	
     	// TODO: I dont want ALL entities to have 3 abilities by default
-    	this.abilities = new Ability[3];
-    	for(int i = 0; i < abilities.length; i++){
+    	this.abilities = new Ability[numberOfAbilities];
+    	for(int i = 0; i < numberOfAbilities; i++){
     		int num = i+1;
     		abilities[i] = new Ability("Ability "+num, damage, false);
     	}
-    	this.abilities[0].setAOE(false);
-    	this.abilities[1].setAOE(true);
-    	this.abilities[2].setAOE(true);
     	
-    }
-    
-	// TODO: I dont think renaming abilities should be a Entitiy method, but for sure need to change size
-    public void renameAllAbilities(String ability1, String ability2, String ability3) {
-    	abilities[0].setName(ability1);
-    	abilities[1].setName(ability2);
-    	abilities[2].setName(ability3);
-
     }
     
     public Entity(String name) {
@@ -58,14 +49,10 @@ public class Entity {
     	this.level = 1;
     	this.maxHealth = health;
     	this.isAlive = true;
-    	
-    	// TODO: I dont want ALL entities to have 3 abilities by default #2
+        numberOfAbilities = 1;
+    	abilities = new Ability[1];
+    	abilities[0] = new Ability("Ability 1", damage, false);
 
-    	abilities = new Ability[3];
-    	for(int i = 0; i < abilities.length; i++){
-    		int num = i + 1;
-    		abilities[i] = new Ability("Ability "+num, damage, false);
-    	}
     }
     
     public int getNumberOfAbilities() {
