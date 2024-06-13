@@ -1,3 +1,2 @@
 # Game Alpha by Heta Warriors
- A text/some image-based rpg. Used as a demo for a sooner bigger game
-testing test...'=
+ A text-only turn-based rpg. Used as a demo for a sooner bigger game
