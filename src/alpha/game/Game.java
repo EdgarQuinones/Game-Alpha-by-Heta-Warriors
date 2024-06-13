@@ -15,17 +15,19 @@ import alpha.other.UI;
  * The Game class handles most of the actual game logic.
  * It is where the basic game loop is handled, while 
  * accessing the other classes for other uses, like 
- * lore and character battle.
+ * lore and character battle. It is also where the 
+ * band of characters are currently made. May move 
+ * somewhere else.
  */
 public class Game {
 		
 	// TODO: Give player the ability to choose how many characters, and what character.
 	// Playable Characters:
-	private static Player EJ = new Player("Samurai", 150, 30, 25, Player.NUMBER_OF_PLAYER_ABILITIES);//mid health, mid dmg (Brawler)
-	private static Player Papi = new Player("Wolverine", 200, 20, 30, Player.NUMBER_OF_PLAYER_ABILITIES); // high health, low-mid dmg (Tank)
-	private static Player Jada = new Player("Flame Spirit", 125, 50, 10, Player.NUMBER_OF_PLAYER_ABILITIES); //low health, high dmg (Glass cannon)
-	private static Player Marielle = new Player("Executioner",125, 40, 20, Player.NUMBER_OF_PLAYER_ABILITIES); //mid health, high dmg (Assasin)
-	private static Player Vinny = new Player("Mender", 100, 10, 10, Player.NUMBER_OF_PLAYER_ABILITIES); //low health, low dmg (healer)
+	private static Player EJ = new Player("Samurai", 150, 30, 25);//mid health, mid dmg (Brawler)
+	private static Player Papi = new Player("Wolverine", 200, 20, 30); // high health, low-mid dmg (Tank)
+	private static Player Jada = new Player("Flame Spirit", 125, 50, 10); //low health, high dmg (Glass cannon)
+	private static Player Marielle = new Player("Executioner",125, 40, 20); //mid health, high dmg (Assasin)
+	private static Player Vinny = new Player("Mender", 100, 10, 10); //low health, low dmg (healer)
 	
 	private static Player[] band = {EJ, Papi, Jada, Vinny, Marielle};	
 	
@@ -129,9 +131,8 @@ public class Game {
 	
 	/**
 	 * TODO: #1 Both fight() and battlePhase() need to be 
-	 * cleaned up and use helper methods. Way too much 
-	 * going on in both. But might still keep the booleans
-	 * idk... Need a way to know how the fight is going.
+	 * cleaned up and use helper methods. Very good progress so far, 
+	 * I just feel something is missing and we can maybe add 2 or 3 more methods 
 	 */
 
 	/**

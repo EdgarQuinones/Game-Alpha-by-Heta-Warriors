@@ -12,6 +12,12 @@ public class Lore {
 	private String location;
 	private String info;
 	
+	/**
+	 * Constructor used to setup Lore for 
+	 * all levels.
+	 * @param location Location of a sub-section of a level
+	 * @param info Information on said sub-section
+	 */
 	public Lore(String location, String info) {
 		this.location = location;
 		this.info = info; 
@@ -30,19 +36,32 @@ public class Lore {
 	};
 	
 	
-	
+	/**
+	 * @return Location of level
+	 */
 	public String getLocation() {
 		return location;
 	}
 
+	/**
+	 * Sets new location 
+	 * @param Location Location of level
+	 */
 	public void setLocation(String Location) {
 		this.location = Location;
 	}
 
+	/**
+	 * @return Prints current info of that location
+	 */
 	public String getInfo() {
 		return info;
 	}
 
+	/**
+	 * Sets new info for a location
+	 * @param info New info for a location
+	 */
 	public void setInfo(String info) {
 		this.info = info;
 	}

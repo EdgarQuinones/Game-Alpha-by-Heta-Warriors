@@ -9,8 +9,8 @@ package alpha.game;
 public class Main {
     
 	/**
-	 * Currently the main band of characters are premade here, 
-	 * giving the player 1 of 5 classes to play as.
+	 * Main is kept clear for readability, the Game()
+	 * class handles most the stuff on the back-end.
 	 * @param args Used for command-line arguments
 	 */
     public static void main(String[] args) {

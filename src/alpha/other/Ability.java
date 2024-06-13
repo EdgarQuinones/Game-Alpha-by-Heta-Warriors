@@ -37,13 +37,13 @@ public class Ability {
 	/**
 	 * A constructor that allows to choose all the stats beforehand. 
 	 * @param name The name of the ability 
-	 * @param damage The damage of the ability, should be relativly low as it will
+	 * @param effect The effectiveness of the ability, should be relativly low as it will
 	 * scale with the players damage/power.
 	 * @param isAOE Used with a different function to deterime if a ability is AOE (Area of Effect).
 	 */
-	public Ability(String name, int damage, boolean isAOE) {
+	public Ability(String name, int effect, boolean isAOE) {
 		this.name = name;
-		this.effect = damage;
+		this.effect = effect;
 		this.isAOE = isAOE;
 		this.effectType = NO_TYPE;
 	}
@@ -80,18 +80,36 @@ public class Ability {
 		this.isAOE = isAOE;
 	}
 	
+	/**
+	 * 
+	 * @return effective power of said ability
+	 */
 	public int getEffect() {
 		return effect;
 	}
 
+	/**
+	 * 
+	 * @param effect New effective power of said ability
+	 */
 	public void setEffect(int effect) {
 		this.effect = effect;
 	}
 
+	/**
+	 * 
+	 * @return Current effective power of said ability
+	 */
 	public String getEffectType() {
 		return effectType;
 	}
 
+	/**
+	 * Sets the effectTypes of an ability. There are
+	 * only 4 types, while there is no check for error, 
+	 * this is handled in the back-end so hopefully no issues.
+	 * @param effectType Effect type based on numbers
+	 */
 	public void setEffectType(int effectType) {
 		//MUST BE 1 OF 4 TYPES ABOVE
 		
@@ -121,7 +139,6 @@ public class Ability {
 	/**
 	 * Prints an ability's name, damage, and whether it is AOE or not.
 	 */
-	@Override
 	public String toString() {
 		return name + "\nDamage: " + effect + "\nAOE: " + isAOE;
 	}

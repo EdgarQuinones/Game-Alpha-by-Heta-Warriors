@@ -22,7 +22,18 @@ public class Entity {
     protected Ability[] abilities;
     protected int numberOfAbilities;
     
-    public Entity(String name, int health, int damage, int defence, int size) {
+    /**
+     * Gives child classes the ability to 
+     * be as detailed as possible when 
+     * giving all the important stats needed
+     * in a turn-based rpg
+     * @param name Name of the entity
+     * @param health Health of the entity 
+     * @param damage Damage of the entity
+     * @param defence Defence of the entity
+     * @param numberOfAbilities The number of abilities an entity will have
+     */
+    public Entity(String name, int health, int damage, int defence, int numberOfAbilities) {
     	this.name = name;
     	this.health = health;
     	this.damage = damage;
@@ -30,7 +41,7 @@ public class Entity {
     	this.level = 1;
     	this.maxHealth = health;
     	this.isAlive = true;
-    	numberOfAbilities = size;
+    	this.numberOfAbilities = numberOfAbilities;
     	
     	// TODO: I dont want ALL entities to have 3 abilities by default
     	this.abilities = new Ability[numberOfAbilities];
@@ -41,6 +52,13 @@ public class Entity {
     	
     }
     
+    /**
+     * For simpilar characters like
+     * minions and nps, I wanted to 
+     * give a simple default constructor, 
+     * you do need to add a name though.
+     * @param name Name of the entity
+     */
     public Entity(String name) {
     	this.name = name;
     	this.health = 100;
@@ -55,32 +73,65 @@ public class Entity {
 
     }
     
+    /**
+     * 
+     * @return The number of abilites an entity has
+     */
     public int getNumberOfAbilities() {
     	return abilities.length;
     }
     
+    /**
+     * 
+     * @return The ability array, as all entities
+     * store their abilities in an array
+     */
 	public Ability[] getAbilities() {
 		return abilities;
 	}
 
+	/**
+	 * New set of abilities to
+	 * a new one with a new array of abilities, 
+	 * but it wont work if the size is not the same
+	 * as numberOfAbilities
+	 * @param abilities New set of abilities
+	 */
 	public void setAbilities(Ability[] abilities) {
+		if(abilities.length == this.numberOfAbilities)
 		this.abilities = abilities;
 	}
 
-	
-
+	/**
+	 * 
+	 * @return The defence of an entity
+	 */
 	public int getDefence() {
 		return defence;
 	}
 
+	/**
+	 * 
+	 * @return The name of an entity
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @param name The new name of an entity
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Returns the current enetities damage 
+	 * as long as they are alive, if not it 
+	 * will simply return 0
+	 * @return The entities damage
+	 */
     public int attack() {
     	if(this.isAlive) {
     		return damage;
@@ -90,10 +141,18 @@ public class Entity {
     	
     }
 
+    /**
+     * 
+     * @return The maxhealth of an entity
+     */
 	public int getMaxHealth() {
 		return maxHealth;
 	}
 
+	/**
+	 * 
+	 * @param maxHealth New maxhealth of an entity
+	 */
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
 	}
@@ -121,35 +180,65 @@ public class Entity {
     	}
     }
     
+    /**
+     * 
+     * @return The entities health
+     */
 	public int getHealth() {
 		return health;
 	}
 
+	/**
+	 * 
+	 * @return The entities damage
+	 */
 	public int getDamage() {
 		return damage;
 	}
 
+	/**
+	 * 
+	 * @return The entities level
+	 */
 	public int getLevel() {
 		return level;
 	}
 
+	/**
+	 * 
+	 * @param level The entities new level
+	 */
 	private void setLevel(int level) {
 		this.level = level;
 	}
 	
+	/**
+	 * 
+	 * @return The bool determining if the entity is alive
+	 */
 	public boolean isAlive() {
 		return isAlive;
 	}
 
+	/**
+	 * 
+	 * @param isAlive The new bool determining if the entity is alive
+	 */
 	private void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
 	}
 	
-	protected void levelUp() {
-		this.setLevel(level++);
+	/**
+	 * Increases level a certain number of times 
+	 * @param level Number of levels the entity is increasing 
+	 */
+	protected void levelUp(int level) {
+		level += level;
 	}
 	
-	//Used for when a band fails and need to restart a level.
+	/**
+	 * Used for when a band fails and need to restart a level.
+	 */
 	public void reset() {
 		this.health = this.maxHealth;
 		this.isAlive = true;

@@ -7,7 +7,10 @@ package alpha.characters;
  */
 public class Icon {
 	
-	public static void menu() {
+	/**
+	 * Prints the title screen of the game using ASCII
+	 */
+	public static void titleScreen() {
 		System.out.println(".----------------------------------------------------------------------------------------------.\n"
 				+ "|       _                 _       _                                                            |\n"
 				+ "|      /.\\       ____    FJ_     FJ___      ____     _ ___                                     |\n"
@@ -27,14 +30,23 @@ public class Icon {
 				+ "'----------------------------------------------------------------------------------------------");
 	}
 
+	/*
+	 * Prints the samurai ASCII logo 
+	 */
 	public static void samurai() {
 		System.out.println("Samurai Picture");
 	}
 	
+	/*
+	 * Prints the minion ASCII logo 
+	 */
 	public static void minion() {
 		System.out.println("Minion Picture");
 	}
 	
+	/*
+	 * Prints the orc ASCII logo 
+	 */
 	public static void orc() {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 				+ "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"

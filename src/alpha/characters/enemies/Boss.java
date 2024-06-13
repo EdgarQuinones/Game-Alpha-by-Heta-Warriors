@@ -9,6 +9,14 @@ package alpha.characters.enemies;
  */
 public class Boss extends Enemy{
 
+	/**
+	 * More detailed boss
+	 * @param name Name of the boss
+	 * @param health Health of the boss
+	 * @param damage Amount of damage boss does
+	 * @param defence Amount of defence boss has
+	 * @param size The number of abilities the boss has
+	 */
 	public Boss(String name, int health, int damage, int defence, int size) {
 		super(name, health, damage, defence, size);
 	}
