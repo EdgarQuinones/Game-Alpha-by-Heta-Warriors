@@ -9,16 +9,49 @@ package alpha.other;
  */
 public class Ability {
 	
+	/**
+	 * The name of the ability
+	 */
+	private String name;
+	
+	/**
+	 * The effect/power of the ability
+	 */
+	private int effect;
+	
+	/**
+	 * Whether or not the ability is AOE
+	 */
+	private boolean isAOE;
+	
+	/**
+	 * The effectType of the ability, 1 of 4
+	 */
+	private String effectType;
+	
+	/**
+	 * All abilities will have 1 of 4 types.
+	 * These types will be implemented later 
+	 * to determine what the ability does.
+	 */
+	
+	/**
+	 * Used when an ability has not been set yet
+	 */
 	private final String NO_TYPE = "None"; // Type 1
+	/**
+	 * Used for damaging abilities, reduces the health of another
+	 */
 	private final String DAMAGE_TYPE = "Damage"; // Type 2
-	private final String HEAL_TYPE = "Heal";  // Type 3
+	/**
+	 * Used for healing, increases the health of others
+	 */
+	private final String HEAL_TYPE = "Heal"; // Type 3	
+	/**
+	 * Temporary boost of stats, this can be health, damage, defence, etc...
+	 */
 	private final String BOOST_TYPE = "Boost"; // Type 4
 	
-	// Private instance variables 
-	private String name;
-	private int effect;
-	private boolean isAOE;
-	private String effectType;
 	
 	/**
 	 * Default constructor will make 
@@ -95,7 +128,7 @@ public class Ability {
 	public void setEffect(int effect) {
 		this.effect = effect;
 	}
-
+	
 	/**
 	 * 
 	 * @return Current effective power of said ability

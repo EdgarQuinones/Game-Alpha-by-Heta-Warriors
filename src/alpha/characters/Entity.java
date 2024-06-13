@@ -10,7 +10,7 @@ import alpha.other.Ability;
  */
 public class Entity {
 
-	// Note: Not all instance variables are currently being used yet.
+	// TODO: Not all instance variables are currently being used yet.
 	// Protected variables to child classes can use them
 	protected int maxHealth;
 	protected int health;

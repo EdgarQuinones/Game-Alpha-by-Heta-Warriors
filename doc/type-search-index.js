@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"alpha.characters","l":"Entity"}];updateSearchResults();
+typeSearchIndex = [{"p":"alpha.other","l":"Ability"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();
