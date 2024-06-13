@@ -9,7 +9,7 @@ package alpha.other;
  */
 public class Ability {
 	
-	// TODO: change damage to something else, should be able to be used as healing too.
+	// TODO: #2 change damage to something else, should be able to be used as healing too.
 	// Private instance variables 
 	private String name;
 	private int damage;

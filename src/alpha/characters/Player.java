@@ -12,13 +12,11 @@ public class Player extends Entity{
 
 	public Player(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 
 	public Player(String name, int health, int damage, int defence) {
 		super(name, health, damage, defence);
-		// TODO Auto-generated constructor stub
 	}
 
 

@@ -1,14 +1,16 @@
 package alpha.game;
 
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
 
-import alpha.characters.Icon;
 import alpha.characters.Player;
 import alpha.characters.enemies.Boss;
 import alpha.characters.enemies.Enemy;
 import alpha.characters.enemies.Minion;
 import alpha.other.Ability;
+import alpha.other.Lore;
+import alpha.other.UI;
 
 /**
  * The Game class handles most of the actual game logic.
@@ -18,25 +20,31 @@ import alpha.other.Ability;
  */
 public class Game {
 	
-	// TODO: Move location to Class: Lore. And move minion/boss count to another class?
-	// Private instance variables
-	private static String location;
+	// TODO: Move minion/boss count to another class?
 	private static int minionCount;
 	private static int bossCount;
-	// TODO: Create 2D array for enemies?
-	// TODO: Move players array to Game class?
-
+	
+	// TODO: Give player the ability to choose how many characters, and what character.
+	// Playable Characters:
+	private static Player EJ = new Player("Samurai", 150, 30, 25);//mid health, mid dmg (Brawler)
+	private static Player Papi = new Player("Wolverine", 200, 20, 30); // high health, low-mid dmg (Tank)
+	private static Player Jada = new Player("Flame Spirit", 125, 50, 10); //low health, high dmg (Glass cannon)
+	private static Player Marielle = new Player("Executioner",125, 40, 20); //mid health, high dmg (Assasin)
+	private static Player Vinny = new Player("Mender", 100, 10, 10); //low health, low dmg (healer)
+	
+	private static Player[] band = {EJ, Papi, Jada, Vinny, Marielle};	
+	
 	/**
 	 * Start() is essentially the main method, but is abstracted away
 	 * for cleaner visuals.
-	 * @param band Group of players in the game.
 	 */
-	public static void Start(Player[] band) {
+	public static void Start() {
+		UI.startMenu();
+		level1();
 		
-		// TODO: Move the Band here or somewhere away from main so its cleaner.
-		//startMenu();
-		Level1(band);
-		
+		//level2()
+		//level3()
+		//etc...
 	}
 	
 	/*
@@ -45,68 +53,46 @@ public class Game {
 	 * defeat all waves to proceed to the next level. 
 	 * Progress is reset until next level.
 	 */
-	private static void Level1(Player[] band) {
+	private static void level1() {
 		
-		boolean battleOutcome;
+		Lore.level1Start();
 		
-		//Lore.level1Start();//lore for level 1
+		// TODO: Possibly pre-make all enemy waves in different class?
+		// TODO: 2 more waves, 1 regular and 1 boss
+		Enemy[][] enemyWaves = {
+				{
+					new Minion("Mysterious Minion"),
+					new Minion("Wild Minion"),
+					new Minion("Primeval Minion"),
+					new Minion("Silly Minion")
+				},
+				{
+					new Minion("Cold-blooded Minion"),
+					new Minion("Frosty Minion"),
+					new Minion("Frigid Minion")
+				}
+		};
 		
-		// TODO: Lore Class should handle the location, 
-		// TODO: maybe 2D array containing all waves per level?
-		location = "Ghastly Woods";
-		Enemy[] wave1 = {
-				new Minion("Mysterious Minion"),
-				new Minion("Wild Minion"),
-				new Minion("Primeval Minion"),
-				};
+		int currentWave = 0;
+		fight(Lore.level1Locations[currentWave].getLocation(), enemyWaves[currentWave]);
 		
-		// TODO: Figure out better method for handling battles instead of 2 booleans
-		battleOutcome = fight(band, location, wave1);
-		while(!battleOutcome) {
-			
-			System.out.println("*******************");
-			System.out.println(" All Band members Defeated!  ");
-			System.out.println(" Going back to the start!  ");
-			System.out.println("*******************\n");
-			
-			for(Player member : band) {
-				member.reset();
-			}
-			for(Enemy mob : wave1) {
-				mob.reset();
-			}
-			
-			battleOutcome = fight(band, location, wave1);
+		for(Player member : band) {
+			member.reset();
 		}
 		
+		currentWave = 1;
+		fight(Lore.level1Locations[currentWave].getLocation(), enemyWaves[currentWave]);
 		
-		//end of section 1
-		System.out.println();
+		/* TODO: 4 sections per level, 4th is boss
 		
-		//Section 2 loop
-		location = "Icy Cliffs";
-		Enemy[] wave2 = {
-				new Minion("Cold-blooded Minion"),
-				new Minion("Frosty Minion"),
-				new Minion("Frigid Minion"),
-				};
-		fight(band, location, wave2);
-		//end of section 2
-	}
-
-	// TODO: This should be in Lore, not in Game, so not making a comment 
-	@SuppressWarnings("unused")
-	private static void level1Intro() {
-		// TODO Auto-generated method stub
-		System.out.println("Lore of level 1"); 
-	}
-
-	// TODO: Might move to lore, or make a UI class.
-	@SuppressWarnings("unused")
-	private static void startMenu() {
-		System.out.println("Welcome to...");
-		Icon.menu();
+		int currentWave = 2;
+		fight(Lore.level1Locations[currentWave].getLocation(), enemyWaves[currentWave]);
 		
+		currentWave = 3;
+		fight(Lore.level1Locations[currentWave].getLocation(), enemyWaves[currentWave]);
+		 
+		 */
+	
 	}
 	
 	/**
@@ -114,18 +100,15 @@ public class Game {
 	 * A band of players get looped through and attack a 
 	 * group of enemies. Following that, the enemies attack 
 	 * back using a random number generator.
-	 * @param band Group of playing characters 
 	 * @param location Current location of the band. Most likely will move to Lore
 	 * @param mobs Group of enemies. Most likely change to 2D array
 	 * @return
 	 */
-	private static boolean fight(Player[] band, String location, Enemy[] mobs) {
-		
+	private static void fight(String location, Enemy[] mobs) {
 		// TODO: Too many booleans and lore here. Clean up needed
 		System.out.println("You have entered "+location+".\n");
-		boolean bandIsAlive = true;
 		boolean levelCompleted = false;
-		while(!levelCompleted && bandIsAlive) {
+		while(!levelCompleted) {
 			
 			int livingMobs = 0;
 			for(Enemy mob : mobs ) {
@@ -148,21 +131,15 @@ public class Game {
 			System.out.println("* "+minionCount+" Minions");
 			System.out.println("* "+bossCount+" Bosses\n");
 	
-			bandIsAlive = battlePhase(band,mobs);
+			battlePhase(band,mobs);
 			
 			levelCompleted = !(checkEnemies(mobs));
 		}
 		
-		// TODO: Gotta get rid of this somehow
-		if(levelCompleted && bandIsAlive) {
-			return true;//goes to level 2
-		}else {
-			return false;//restarts level
-		}
 	}
 	
 	/**
-	 * TODO: Both fight() and battlePhase() need to be 
+	 * TODO: #1 Both fight() and battlePhase() need to be 
 	 * cleaned up and use helper methods. Way too much 
 	 * going on in both. But might still keep the booleans
 	 * idk... Need a way to know how the fight is going.
@@ -176,32 +153,49 @@ public class Game {
 	 * @param mobs
 	 * @return
 	 */
-	private static boolean battlePhase(Player[] band, Enemy[] mobs) {
+	private static void battlePhase(Player[] band, Enemy[] mobs) {
 		
-		// TODO: A little too many variables here. Will need to clean up
-		try (Scanner scnr = new Scanner(System.in)) {
-			int choice = 0;
+		// TODO: #3 A little too many variables here. Will need to clean up
+			Scanner scnr = new Scanner(System.in);
 			int playerDamage = 0;
+			int enemyChoice = -1;
+			int abilityChoice = -1;
 			int enemyDamage = 0;
 			Ability[] playerAbilities;
 			for(Player member : band) {
-				
-				// TODO: Move to UI?
-				System.out.println("*******************");
-				System.out.println(" The Band's Turn!  ");
-				System.out.println("*******************\n");
+				UI.playersTurn();
 				
 				displayPlayers(band);
 				displayEnemies(mobs);
-				do {
+
 				System.out.println(member.getName()+"'s turn. Select an ability:\n");
 				Ability.displayAbilities(member.getAbilities());
 				playerAbilities = member.getAbilities();
-				System.out.print("Ability: ");
-				choice = scnr.nextInt();
-				System.out.println();
 				
-				switch(choice) {
+				boolean flag = true;
+				while(flag){
+					try {
+						boolean valid = false;
+						do {
+							System.out.print("Ability: ");
+							abilityChoice = scnr.nextInt();
+							if(abilityChoice < 1 || abilityChoice > 3) {
+								System.out.println("\nInput must be a number 1-3\n");
+								scnr.nextLine();
+								continue;
+							}
+							valid = true;
+						}while(!valid);
+						flag = false;
+					}
+					catch(NoSuchElementException e) {
+						System.out.println("\nInput must be a number 1-3\n");
+						// FIXME: Game flips out when going to level 2
+						scnr.nextLine();
+					}
+				}	
+				
+				switch(abilityChoice) {
 				
 				case 1: 
 					playerDamage = playerAbilities[0].getDamage();
@@ -211,20 +205,35 @@ public class Game {
 					playerDamage = playerAbilities[2].getDamage();
 				}
 				
-						
-				}while(choice <= 0 || choice > member.getNumberOfAbilities());
+				displayPlayers(band);
+				displayEnemies(mobs);
 				
-				do {
-					displayPlayers(band);
-					System.out.println("Select an Enemy: ");
-					displayEnemies(mobs);
-					System.out.print("Enemy: ");
-					choice = scnr.nextInt();
-					System.out.println();
-				}while(choice <= 0 || choice > mobs.length);	
-					if(!playerAbilities[choice -1].isAOE()) {
+				flag = true;
+				while(flag) {
+					try {
+						boolean valid = false;
+						do {
+							System.out.println("Select an Enemy: \n");
+							System.out.print("Enemy: ");
+							enemyChoice = scnr.nextInt();
+							if(enemyChoice < 1 || enemyChoice > mobs.length) {
+								System.out.println("\nInput must be a number 1-"+mobs.length+"\n");
+								scnr.nextLine();
+								continue;
+							}
+							scnr.nextLine();
+							valid = true;
+							flag = false;
+						}while(!valid);
+					}catch(NoSuchElementException e) {
+							System.out.println("\nInput must be a number 1-"+mobs.length+"\n");
+							scnr.nextLine();
+					}
+				}			
+					
+				if(!playerAbilities[abilityChoice - 1].isAOE()) {
 						for(int i = 0; i < mobs.length; i++) {
-							if(choice - 1 == i) {
+							if(enemyChoice - 1 == i) {
 								mobs[i].hurt(playerDamage);
 								System.out.println(member.getName()+" did "+playerDamage+" to "+mobs[i].getName());
 							}
@@ -237,10 +246,12 @@ public class Game {
 						}
 			}//End of band attacks 
 			
-			// TODO: Move to UI? #2 
-			System.out.println("\n*******************");
-			System.out.println(" The Enemies Turn!  ");
-			System.out.println("*******************\n");
+			if(!checkEnemies(mobs)) {
+				scnr.close();
+				return;
+			}
+			
+			UI.enemysTurn();
 			
 			Random rand = new Random();
 			int attackedPlayer = rand.nextInt(band.length);
@@ -250,15 +261,21 @@ public class Game {
 				System.out.println(mob.getName()+" did "+mob.attack()+" to "+band[attackedPlayer].getName());
 				attackedPlayer = rand.nextInt(band.length);
 			}
-		}
-		System.out.println();
+			
+			if(!checkStatus(band)) {
+				UI.playersDefeated();
+				
+				for(Player member : band) {
+					member.reset();
+				}
+				for(Enemy mob : mobs) {
+					mob.reset();
+				}
+			}
 		
-		if(checkStatus(band)) {
-			return true;
-		}else {
-			return false;
+			System.out.println();
+			scnr.close();
 		}
-	}
 
 	/**
 	 * Used to check if all enemies are alive, if 
@@ -268,7 +285,6 @@ public class Game {
 	 * @return true if at least 1 alive, else false
 	 */
 	private static boolean checkEnemies(Enemy[] mobs) {
-		// TODO Auto-generated method stub
 		int counter = 0;
 		for(Enemy mob : mobs) {
 			if(!mob.isAlive()) {
@@ -291,7 +307,7 @@ public class Game {
 	 * @return true if at least 1 alive, else false
 	 */
 	private static boolean checkStatus(Player[] band) {
-		// TODO Auto-generated method stub
+		
 		int bandSize = band.length;
 		int downedMembers = 0;
 		for(Player player : band) {
