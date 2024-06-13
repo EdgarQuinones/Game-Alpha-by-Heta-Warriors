@@ -3,12 +3,8 @@ package alpha.other;
 import alpha.characters.Icon;
 
 /**
- * Handles all the UI elements. This includes:
- * - Whos turn it is
- * - When the band of players all lose
- * - The start menu
- * - Side by side with Lore class
- * - etc...
+ * Handles all the UI elements. This includes: - Whos turn it is - When the band
+ * of players all lose - The start menu - Side by side with Lore class - etc...
  */
 public class UI {
 
@@ -20,16 +16,7 @@ public class UI {
 		System.out.println(" The Enemies Turn!  ");
 		System.out.println("*******************\n");
 	}
-	
-	/**
-	 * Prints when its the players turn in battle phase.
-	 */
-	public static void playersTurn() {
-		System.out.println("*******************");
-		System.out.println(" The Band's Turn!  ");
-		System.out.println("*******************\n");
-	}
-	
+
 	/**
 	 * Prints when all players die, level resets
 	 */
@@ -39,14 +26,23 @@ public class UI {
 		System.out.println(" Going back to the start!  ");
 		System.out.println("*******************\n");
 	}
-	
+
+	/**
+	 * Prints when its the players turn in battle phase.
+	 */
+	public static void playersTurn() {
+		System.out.println("*******************");
+		System.out.println(" The Band's Turn!  ");
+		System.out.println("*******************\n");
+	}
+
 	/**
 	 * Intro to the game Aether Champions
 	 */
 	public static void startMenu() {
 		System.out.println("Welcome to...");
 		Icon.titleScreen();
-		
+
 	}
-	
+
 }
