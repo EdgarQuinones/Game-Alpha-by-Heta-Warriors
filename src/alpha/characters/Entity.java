@@ -254,14 +254,6 @@ public class Entity {
 
 	/**
 	 * 
-	 * @param level The entities new level
-	 */
-	private void setLevel(int level) {
-		this.level = level;
-	}
-
-	/**
-	 * 
 	 * @param maxHealth New maxhealth of an entity
 	 */
 	public void setMaxHealth(int maxHealth) {
