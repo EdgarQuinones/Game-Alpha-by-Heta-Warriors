@@ -9,7 +9,6 @@ import alpha.other.Ability;
  */
 public class Entity {
 
-	// TODO: Not all instance variables are currently being used yet.
 	// Protected variables to child classes can use them
 
 	/**
@@ -37,6 +36,7 @@ public class Entity {
 	 */
 	protected boolean isAlive;
 
+	// TODO: Figure out implementation for level
 	/**
 	 * current level of Enetity
 	 */
@@ -60,7 +60,7 @@ public class Entity {
 	/**
 	 * For simpilar characters like minions and nps, I wanted to give a simple
 	 * default constructor, you do need to add a name though.
-	 * 
+	 *
 	 * @param name Name of the entity
 	 */
 	public Entity(String name) {
@@ -80,7 +80,7 @@ public class Entity {
 	/**
 	 * Gives child classes the ability to be as detailed as possible when giving all
 	 * the important stats needed in a turn-based rpg
-	 * 
+	 *
 	 * @param name              Name of the entity
 	 * @param health            Health of the entity
 	 * @param damage            Damage of the entity
@@ -97,7 +97,6 @@ public class Entity {
 		this.isAlive = true;
 		this.numberOfAbilities = numberOfAbilities;
 
-		// TODO: I dont want ALL entities to have 3 abilities by default
 		this.abilities = new Ability[numberOfAbilities];
 		for (int i = 0; i < numberOfAbilities; i++) {
 			int num = i + 1;
@@ -109,7 +108,7 @@ public class Entity {
 	/**
 	 * Returns the current enetities damage as long as they are alive, if not it
 	 * will simply return 0
-	 * 
+	 *
 	 * @return The entities damage
 	 */
 	public int attack() {
@@ -122,7 +121,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The ability array, as all entities store their abilities in an array
 	 */
 	public Ability[] getAbilities() {
@@ -130,7 +129,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The entities damage
 	 */
 	public int getDamage() {
@@ -138,7 +137,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The defence of an entity
 	 */
 	public int getDefence() {
@@ -146,7 +145,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The entities health
 	 */
 	public int getHealth() {
@@ -154,7 +153,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The entities level
 	 */
 	public int getLevel() {
@@ -162,7 +161,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The maxhealth of an entity
 	 */
 	public int getMaxHealth() {
@@ -170,7 +169,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The name of an entity
 	 */
 	public String getName() {
@@ -178,7 +177,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The number of abilites an entity has
 	 */
 	public int getNumberOfAbilities() {
@@ -190,14 +189,16 @@ public class Entity {
 	 * made, for not it blocks a flat amount. So if you have more defence than
 	 * someone's damage, they will always do 0 damage. This means as of now people
 	 * need to either do alot of damage, or defence needs to be very low.
-	 * 
+	 *
 	 * @param damage The damage the entity is about to take.
 	 */
 	public void hurt(int damage) {
 
+		// TODO: Figure out new calculation for defence stat
 		damage = damage - defence;
-		if (damage < 0)
+		if (damage < 0) {
 			damage = 0;
+		}
 
 		this.health = this.health - damage;
 
@@ -209,7 +210,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The bool determining if the entity is alive
 	 */
 	public boolean isAlive() {
@@ -218,7 +219,7 @@ public class Entity {
 
 	/**
 	 * Increases level a certain number of times
-	 * 
+	 *
 	 * @param level Number of levels the entity is increasing
 	 */
 	protected void levelUp(int level) {
@@ -236,16 +237,17 @@ public class Entity {
 	/**
 	 * New set of abilities to a new one with a new array of abilities, but it wont
 	 * work if the size is not the same as numberOfAbilities
-	 * 
+	 *
 	 * @param abilities New set of abilities
 	 */
 	public void setAbilities(Ability[] abilities) {
-		if (abilities.length == this.numberOfAbilities)
+		if (abilities.length == this.numberOfAbilities) {
 			this.abilities = abilities;
+		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @param isAlive The new bool determining if the entity is alive
 	 */
 	private void setAlive(boolean isAlive) {
@@ -253,7 +255,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param maxHealth New maxhealth of an entity
 	 */
 	public void setMaxHealth(int maxHealth) {
@@ -261,7 +263,7 @@ public class Entity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param name The new name of an entity
 	 */
 	public void setName(String name) {

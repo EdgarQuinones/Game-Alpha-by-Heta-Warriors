@@ -11,7 +11,7 @@ public class Main {
 	/**
 	 * Main is kept clear for readability, the Game() class handles most the stuff
 	 * on the back-end.
-	 * 
+	 *
 	 * @param args Used for command-line arguments
 	 */
 	public static void main(String[] args) {

@@ -9,7 +9,7 @@ public class Minion extends Enemy {
 	/**
 	 * Due to the simpleness of minions, I made a constructor for just putting their
 	 * name, unsure how often I will use this later on.
-	 * 
+	 *
 	 * @param name Name of the minion
 	 */
 	public Minion(String name) {
@@ -18,7 +18,7 @@ public class Minion extends Enemy {
 
 	/**
 	 * More detailed minion
-	 * 
+	 *
 	 * @param name    Name of the minion
 	 * @param health  Health of the minion
 	 * @param damage  Amount of damage minion does

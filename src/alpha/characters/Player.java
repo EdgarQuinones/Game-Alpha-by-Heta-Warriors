@@ -15,7 +15,7 @@ public class Player extends Entity {
 
 	/**
 	 * Players need detail as they are the main characters
-	 * 
+	 *
 	 * @param name    Name of the player
 	 * @param health  Health of the player
 	 * @param damage  Amount of damage player does
@@ -27,7 +27,7 @@ public class Player extends Entity {
 
 	/**
 	 * Sets the boolean value of all 3 abilities the player has
-	 * 
+	 *
 	 * @param AOE1 The first AOE value
 	 * @param AOE2 The second AOE value
 	 * @param AOE3 The third AOE value
@@ -40,7 +40,7 @@ public class Player extends Entity {
 
 	/**
 	 * Sets the effect of all 3 abilities the player has
-	 * 
+	 *
 	 * @param effect1 The first effect value
 	 * @param effect2 The second effect value
 	 * @param effect3 The third effect value
@@ -53,7 +53,7 @@ public class Player extends Entity {
 
 	/**
 	 * Sets the effectType of all 3 abilities the player has
-	 * 
+	 *
 	 * @param effectType1 The first effectType
 	 * @param effectType2 The second effectType
 	 * @param effectType3 The third effectType
@@ -66,7 +66,7 @@ public class Player extends Entity {
 
 	/**
 	 * Sets the name of all 3 abilities the player has
-	 * 
+	 *
 	 * @param name1 The first ability name
 	 * @param name2 The second ability name
 	 * @param name3 The third ability name

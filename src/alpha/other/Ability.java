@@ -11,7 +11,7 @@ public class Ability {
 	 * Used in combination with the toString() method to properly display a group of
 	 * spells. Most, if not all Entities will have more than one ability, so it is
 	 * needed.
-	 * 
+	 *
 	 * @param abilities The set of abilities a Entity will have.
 	 */
 	public static void displayAbilities(Ability[] abilities) {
@@ -78,7 +78,7 @@ public class Ability {
 
 	/**
 	 * A constructor that allows to choose all the stats beforehand.
-	 * 
+	 *
 	 * @param name   The name of the ability
 	 * @param effect The effectiveness of the ability, should be relativly low as it
 	 *               will scale with the players damage/power.
@@ -93,7 +93,7 @@ public class Ability {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return effective power of said ability
 	 */
 	public int getEffect() {
@@ -101,7 +101,7 @@ public class Ability {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return Current effective power of said ability
 	 */
 	public String getEffectType() {
@@ -109,7 +109,7 @@ public class Ability {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return The abilities name
 	 */
 	public String getName() {
@@ -117,7 +117,7 @@ public class Ability {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return Whether or not the ability is an AOE spell
 	 */
 	public boolean isAOE() {
@@ -125,7 +125,7 @@ public class Ability {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param isAOE Decides if the spell is AOE or not
 	 */
 	public void setAOE(boolean isAOE) {
@@ -133,7 +133,7 @@ public class Ability {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param effect New effective power of said ability
 	 */
 	public void setEffect(int effect) {
@@ -143,7 +143,7 @@ public class Ability {
 	/**
 	 * Sets the effectTypes of an ability. There are only 4 types, while there is no
 	 * check for error, this is handled in the back-end so hopefully no issues.
-	 * 
+	 *
 	 * @param effectType Effect type based on numbers
 	 */
 	public void setEffectType(int effectType) {
@@ -159,7 +159,7 @@ public class Ability {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param name The new name of the ability
 	 */
 	public void setName(String name) {
@@ -169,6 +169,7 @@ public class Ability {
 	/**
 	 * Prints an ability's name, damage, and whether it is AOE or not.
 	 */
+	@Override
 	public String toString() {
 		return name + "\nDamage: " + effect + "\nAOE: " + isAOE;
 	}

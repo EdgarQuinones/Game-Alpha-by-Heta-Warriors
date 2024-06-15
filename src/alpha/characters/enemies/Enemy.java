@@ -12,7 +12,7 @@ public class Enemy extends Entity {
 	 * Used to count how many of each enemy type is currently alive. Most likely
 	 * will scale as more enemy types are made. It is displayed to the band of
 	 * players every loop.
-	 * 
+	 *
 	 * @param mobs The array of mobs currently fighting
 	 */
 	public static void enemyCount(Enemy[] mobs) {
@@ -31,7 +31,7 @@ public class Enemy extends Entity {
 
 	/**
 	 * Base constructor using only their name for simple tests and very weak enemies
-	 * 
+	 *
 	 * @param name Name of the enemy
 	 */
 	public Enemy(String name) {
@@ -40,7 +40,7 @@ public class Enemy extends Entity {
 
 	/**
 	 * More detailed enemy
-	 * 
+	 *
 	 * @param name    Name of the enemy
 	 * @param health  Health of the enemy
 	 * @param damage  Amount of damage enemy does

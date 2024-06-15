@@ -57,7 +57,7 @@ public class Lore {
 
 	/**
 	 * Constructor used to setup Lore for all levels.
-	 * 
+	 *
 	 * @param location Location of a sub-section of a level
 	 * @param info     Information on said sub-section
 	 */
@@ -82,7 +82,7 @@ public class Lore {
 
 	/**
 	 * Sets new info for a location
-	 * 
+	 *
 	 * @param info New info for a location
 	 */
 	public void setInfo(String info) {
@@ -91,7 +91,7 @@ public class Lore {
 
 	/**
 	 * Sets new location
-	 * 
+	 *
 	 * @param Location Location of level
 	 */
 	public void setLocation(String Location) {

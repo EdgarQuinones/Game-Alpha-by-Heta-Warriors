@@ -9,7 +9,7 @@ public class Boss extends Enemy {
 
 	/**
 	 * More detailed boss
-	 * 
+	 *
 	 * @param name    Name of the boss
 	 * @param health  Health of the boss
 	 * @param damage  Amount of damage boss does

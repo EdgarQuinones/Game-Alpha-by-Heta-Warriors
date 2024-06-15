@@ -8,6 +8,8 @@ import alpha.characters.Icon;
  */
 public class UI {
 
+	// TODO: Move Lore calls from Game() to UI()
+
 	/**
 	 * Prints when its the enemies turn in battle phase.
 	 */
@@ -43,6 +45,18 @@ public class UI {
 		System.out.println("Welcome to...");
 		Icon.titleScreen();
 
+	}
+
+	/**
+	 * To be used before most, if not all UI calls, so the user can read text before
+	 * the next one pops up.
+	 */
+	public void pressToContinue() {
+		/**
+		 * TODO: Setup press 'x' to continue after UI Make it so before and after lore
+		 * is placed the player has to press a button to continue... Currently too much
+		 * pops on the screen.
+		 */
 	}
 
 }
