@@ -73,7 +73,7 @@ public class Game {
 		// TODO: Get rid of this after setting up playerGetAbilityFromArray() is done
 		Ability[] playerAbilities;
 
-		// Loops through all players in the group
+		// TODO: Players turn can be its 1 or 2methods, wayyyy to much code
 		for (Player member : band) {
 			UI.playersTurn();
 
@@ -177,7 +177,7 @@ public class Game {
 
 		UI.enemysTurn();
 
-		// TODO: Make enemy attack method more effeicent and fix defence stat prio
+		// TODO: Make enemy attack its own method and more effeicent and fix defence stat prio
 		/*
 		 * 3. Move the enemy attack player into another method. ALSO SETUP SOME PRIORITY
 		 * BASED ON DEFENCE OR SOMETHING? We might rather need a taunt ability or
@@ -290,6 +290,8 @@ public class Game {
 
 		System.out.println("You have entered " + location + ".\n");
 
+		
+		// TODO This while loop can be its own method, gotta rename a lot of methods 
 		boolean levelCompleted = false;
 		while (!levelCompleted) {
 
